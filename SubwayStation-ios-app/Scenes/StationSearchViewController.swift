@@ -5,6 +5,7 @@
 //  Created by 최진안 on 2023/05/20.
 //
 
+import Alamofire
 import SnapKit
 import UIKit
 
@@ -52,6 +53,10 @@ class StationSearchViewController: UIViewController {
         }
     }
 
+    
+    private func requestStationName() {
+        
+    }
 
 }
 
