@@ -18,7 +18,7 @@ final class StationDetailViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "StationDetailCollectionViewCell")
+        collectionView.register(StationDetailCollectionViewCell.self, forCellWithReuseIdentifier: "StationDetailCollectionViewCell")
         collectionView.dataSource = self
         
         return collectionView
@@ -44,11 +44,11 @@ extension StationDetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StationDetailCollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StationDetailCollectionViewCell", for: indexPath) as? StationDetailCollectionViewCell
         
-        cell.backgroundColor = .gray
+        cell?.setup()
         
-        return cell
+        return cell ?? UICollectionViewCell()
     }
     
 }
