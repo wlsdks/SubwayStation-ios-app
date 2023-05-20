@@ -10,10 +10,13 @@ import UIKit
 
 class StationSearchViewController: UIViewController {
     
+    private var numberOfCells: Int = 0
+    
     // MARK: - 테이블뷰 선언
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.isHidden = true
         
         return tableView
     }()
@@ -34,6 +37,7 @@ class StationSearchViewController: UIViewController {
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "지하철역을 입력해주세요"
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
         
         navigationItem.searchController = searchController
     }
@@ -50,12 +54,29 @@ class StationSearchViewController: UIViewController {
 
 }
 
+// MARK: - 검색바 delegate를 확장선언
+extension StationSearchViewController: UISearchBarDelegate {
+    
+    // 검색어 수정을 할때 동작함
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        numberOfCells = 10
+        tableView.isHidden = false
+    }
+    
+    // 검색어를 다 쓰고 나서 검색바를 닫을때 동작
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        numberOfCells = 0
+        tableView.isHidden = true
+    }
+    
+}
+
 // MARK: - cell의 데이터 설정 확장선언
 extension StationSearchViewController: UITableViewDataSource {
     
     // 섹션당 셀의 개수 세팅
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        return numberOfCells
     }
     
     // 셀의 세부설정
